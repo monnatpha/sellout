@@ -83,17 +83,17 @@ const Register = () => {
     // Function to handle button click
     alert(storeQR.storeCode);
   };
-  const [scannedData, setScannedData] = useState("");
+  // const [scannedData, setScannedData] = useState("");
 
-  const handleScan = (data) => {
-    setScannedData(data); // Store the scanned data
-    alert(`Scanned Data: ${data}`); // Display the scanned data
-  };
+  // const handleScan = (data) => {
+  //   setScannedData(data); // Store the scanned data
+  //   alert(`Scanned Data: ${data}`); // Display the scanned data
+  // };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
-      <div className="p-4">
+      {/* <div className="p-4">
         <h1 className="text-2xl font-bold mb-4">QR Code Scanner</h1>
         <QRCodeScannerComponent onScan={handleScan} />
         {scannedData && (
@@ -102,7 +102,7 @@ const Register = () => {
             <p>{scannedData}</p>
           </div>
         )}
-      </div>
+      </div> */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-lg font-medium mb-2">
