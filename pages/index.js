@@ -94,10 +94,11 @@ export default function Home(props) {
         </a>
       </div>
 
-      <Link href="/registor">
-        <a className="bg-blue-500 text-white py-2 px-4 rounded">
-          ยอมรับเงื่อนไขกิจกรรม
-        </a>
+      <Link
+        href="/registor"
+        className="bg-blue-500 text-white py-2 px-4 rounded"
+      >
+        ยอมรับเงื่อนไขกิจกรรม
       </Link>
     </div>
   );
