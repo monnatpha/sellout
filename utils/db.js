@@ -6,5 +6,5 @@ export const db = mysql.createPool({
   password: "gKHovcjKhNLlXu2",
   database: "focus",
   port: 25060,
-  connectTimeout: 10000,
+  connectTimeout: 5000,
 });
