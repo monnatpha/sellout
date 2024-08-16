@@ -83,14 +83,15 @@ const Register = (props) => {
   };
 
   const handleScanProductQR = () => {
-    liff
-      .scanCodeV2()
-      .then((result) => {
-        setProductQR({ productCode: result });
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
+    setProductQR({ productCode: "result1" });
+    // liff
+    //   .scanCodeV2()
+    //   .then((result) => {
+    //     setProductQR({ productCode: result });
+    //   })
+    //   .catch((error) => {
+    //     console.log("error", error);
+    //   });
   };
 
   const handleScanStoreQR = () => {
@@ -217,16 +218,17 @@ const Register = (props) => {
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ fontSize: "1rem" }}
+              disabled
             />
           </label>
           <button
+            type="button"
             onClick={handleScanProductQR}
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             สแกน QR-Code
           </button>
         </div>
-
         <div>
           <label className="block text-lg font-medium mb-2">
             ร้านค้าตัวแทนจำหน่าย
@@ -265,6 +267,7 @@ const Register = (props) => {
               />
             </label>
             <button
+              type="button"
               onClick={handleScanStoreQR}
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >

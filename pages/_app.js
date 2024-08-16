@@ -15,7 +15,12 @@ function MyApp({ Component, pageProps }) {
       .init({ liffId: "2006057945-Nry8JeBK" })
       .then(() => {
         console.log("liff.init() done");
-        setLiffObject(liff);
+
+        liff.ready.then(() => {
+          console.log("liff.ready() done");
+          setLiffObject(liff);
+          // do something you want when liff.init finishes
+        });
       })
       .catch((error) => {
         console.log(`liff.init() failed: ${error}`);
