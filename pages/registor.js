@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import QRCodeScannerComponent from "../components/QRCodeScanner";
+import liff from "@line/liff";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -50,6 +50,9 @@ const Register = () => {
     e.preventDefault();
     try {
       console.log("Form submitted:", formData);
+      console.log("liff.getOS:", liff.getOS());
+      console.log("liff.getprofile", liff.getProfile());
+
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -76,6 +79,14 @@ const Register = () => {
   const handleScanProductQR = () => {
     // Function to handle button click
     alert(productQR.productCode);
+    liff
+      .scanCodeV2()
+      .then((result) => {
+        console.log(result, "result");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
     toast.success("ลงทะเบียนสำเร็จ");
   };
 
