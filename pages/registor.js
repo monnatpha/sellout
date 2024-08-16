@@ -86,7 +86,7 @@ const Register = (props) => {
     liff
       .scanCodeV2()
       .then((result) => {
-        const params = new URLSearchParams(result);
+        const params = new URLSearchParams(result.value);
         const fwValue = params.get("fw");
         setProductQR({ productCode: fwValue });
       })
@@ -96,10 +96,16 @@ const Register = (props) => {
   };
 
   const handleScanStoreQR = () => {
+    // Parse the inner JSON string which is stored as a string in the 'value' field
+
+    // Extract 'customerNo'
+
     liff
       .scanCodeV2()
       .then((result) => {
-        setStoreQR({ storeCode: result.value.customerNo });
+        const innerObject = JSON.parse(result.value);
+        const customerNo = innerObject.customerNo;
+        setStoreQR({ storeCode: customerNo });
       })
       .catch((error) => {
         console.log("error", error);
