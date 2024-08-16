@@ -3,7 +3,6 @@ import { db } from "../../utils/db";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    console.log(req.body);
     const {
       fullName,
       phoneNumber,
@@ -16,6 +15,7 @@ export default async function handler(req, res) {
       acceptPDPA,
     } = req.body;
     try {
+      console.log(req.body, "be");
       // Call the stored procedure
       const [result] = await db.query(
         "CALL sp_insert_sellout_privilege_privacy_register(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
