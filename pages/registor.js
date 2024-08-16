@@ -86,7 +86,9 @@ const Register = (props) => {
     liff
       .scanCodeV2()
       .then((result) => {
-        setProductQR({ productCode: result });
+        const params = new URLSearchParams(result);
+        const fwValue = params.get("fw");
+        setProductQR({ productCode: fwValue });
       })
       .catch((error) => {
         console.log("error", error);
@@ -97,7 +99,7 @@ const Register = (props) => {
     liff
       .scanCodeV2()
       .then((result) => {
-        setStoreQR({ storeCode: result });
+        setStoreQR({ storeCode: result.value.customerNo });
       })
       .catch((error) => {
         console.log("error", error);
@@ -262,7 +264,7 @@ const Register = (props) => {
               <input
                 type="text"
                 name="storeCode"
-                value={JSON.stringify(storeQR.storeCode)}
+                value={JSON.stringify(storeQR.storeCode.value)}
                 onChange={handleChange}
                 placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -291,9 +293,6 @@ const Register = (props) => {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ fontSize: "1rem" }}
             >
-              <option value="" disabled>
-                เลือกประเภทสินค้า
-              </option>
               <option value="1. กระจกกันรอยเต็มจอแบบด้าน เฉพาะรุ่น iphone เท่านั้น">
                 1. กระจกกันรอยเต็มจอแบบด้าน เฉพาะรุ่น iphone เท่านั้น
               </option>
