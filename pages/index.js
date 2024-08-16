@@ -74,7 +74,7 @@ export default function Home(props) {
       </div>
 
       <Link
-        href="/registor"
+        href="/register"
         className="bg-blue-500 text-white py-2 px-4 rounded"
       >
         ยอมรับเงื่อนไขกิจกรรม

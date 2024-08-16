@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import liff from "@line/liff";
 
 const Register = (props) => {
   const { liff, liffError } = props;
@@ -19,6 +18,8 @@ const Register = (props) => {
     productCode: "",
     storeCode: "",
     productCategory: "",
+    productQR: "",
+    storeQR: "",
   });
 
   const handleChange = (e) => {
@@ -27,46 +28,36 @@ const Register = (props) => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
-
-    // setProductQR({ ...productQR, [name]: value });
-    // setStoreQR({ ...storeQR, [name]: value });
   };
-
-  const [productQR, setProductQR] = useState({
-    productCode: "",
-  });
-
-  const [storeQR, setStoreQR] = useState({
-    storeCode: "",
-  });
 
   const handleSubmit = async (e) => {
     const {
       fullName,
       phoneNumber,
       purchaseChannel,
-      productCode,
+      productQR,
       agentStore,
-      storeCode,
+      storeQR,
       productCategory,
       modelMobile,
       acceptPDPA,
     } = formData;
     e.preventDefault();
+    phoneNumber.replace(/-/g, "");
     try {
       console.log("Form submitted:", formData);
       const id = liff.getIDToken();
       const acc = liff.getAccessToken();
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/insert", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
           phoneNumber,
           purchaseChannel,
-          productCode,
+          productQR,
           agentStore,
-          storeCode,
+          storeQR,
           productCategory,
           modelMobile,
           acceptPDPA,
@@ -82,14 +73,74 @@ const Register = (props) => {
     }
   };
 
+  const lark = async () => {
+    const title = `🔔  มีคำขอสื่อ 🔔`;
+    const message = `🏷  รหัสงาน:`;
+    const elements = [
+      {
+        tag: "div",
+        text: {
+          tag: "plain_text",
+          content: message,
+        },
+      },
+      {
+        tag: "hr",
+      },
+    ];
+
+    const card = {
+      msg_type: "interactive",
+      card: {
+        config: {
+          wide_screen_mode: true,
+          enable_forward: true,
+        },
+        header: {
+          title: {
+            tag: "plain_text",
+            content: title,
+          },
+        },
+        elements,
+      },
+    };
+    try {
+      const response = await fetch(
+        "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(card),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleScanProductQR = () => {
     liff
       .scanCodeV2()
       .then((result) => {
-        const urlObj = new URL(result.value);
-        const params = new URLSearchParams(urlObj.search);
-        const fwValue = params.get("fw");
-        setProductQR({ productCode: fwValue });
+        try {
+          const urlObj = new URL(result);
+          const params = new URLSearchParams(urlObj.search);
+          const fw = params.get("fw");
+          if (fw == null || fw == "") {
+            toast.error("ไม่พบข้อมูลใน QR Code");
+          }
+          setFormData({ productQR: fw });
+          toast.success("สแกน QR Code สำเร็จ");
+        } catch (error) {
+          toast.error("QR Code ไม่ถูกต้อง");
+        }
       })
       .catch((error) => {
         console.log("error", error);
@@ -97,42 +148,37 @@ const Register = (props) => {
   };
 
   const handleScanStoreQR = () => {
-    // Parse the inner JSON string which is stored as a string in the 'value' field
-
-    // Extract 'customerNo'
-
     liff
       .scanCodeV2()
       .then((result) => {
-        const outerObject = JSON.parse(result);
-        const innerObject = JSON.parse(outerObject.value);
-        const customerNo = innerObject.customerNo;
-        setStoreQR({ storeCode: customerNo });
+        try {
+          const urlObj = new URL(result);
+          const params = new URLSearchParams(urlObj.search);
+          const customerNo = params.get("customerNo");
+          if (customerNo == null || customerNo == "") {
+            toast.error("ไม่พบข้อมูลใน QR Code");
+          }
+          setFormData({ storeQR: customerNo });
+          toast.success("สแกน QR Code สำเร็จ");
+        } catch (error) {
+          toast.error("QR Code ไม่ถูกต้อง");
+        }
       })
       .catch((error) => {
         console.log("error", error);
       });
   };
-  // const [scannedData, setScannedData] = useState("");
-
-  // const handleScan = (data) => {
-  //   setScannedData(data); // Store the scanned data
-  //   alert(`Scanned Data: ${data}`); // Display the scanned data
-  // };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า 4</h1>
-      {/* <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">QR Code Scanner</h1>
-        <QRCodeScannerComponent onScan={handleScan} />
-        {scannedData && (
-          <div className="mt-4 p-4 border border-gray-300 rounded-md">
-            <h2 className="text-lg font-semibold">Scanned Data:</h2>
-            <p>{scannedData}</p>
-          </div>
-        )}
-      </div> */}
+      <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
+      <button
+        type="button"
+        onClick={lark}
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        LARK
+      </button>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-lg font-medium mb-2">
@@ -161,6 +207,7 @@ const Register = (props) => {
               onChange={handleChange}
               placeholder="0xx-xxx-xxxx"
               required
+              maxLength={12}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ fontSize: "1rem" }}
             />
@@ -178,7 +225,7 @@ const Register = (props) => {
                 name="purchaseChannel"
                 value="ร้านค้าตัวแทนจำหน่าย"
                 checked={formData.purchaseChannel === "ร้านค้าตัวแทนจำหน่าย"}
-                placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่างนี้"
+                placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
                 onChange={handleChange}
                 required
                 className="mr-2"
@@ -220,14 +267,13 @@ const Register = (props) => {
             <span className="text-red-500"> *</span>
             <input
               type="text"
-              name="productCode"
-              value={JSON.stringify(productQR.productCode, 0, null, 2)}
+              name="productQR"
+              value={formData.productQR}
               onChange={handleChange}
-              placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
+              placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ fontSize: "1rem" }}
-              disabled
             />
           </label>
           <button
@@ -235,7 +281,7 @@ const Register = (props) => {
             onClick={handleScanProductQR}
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            สแกน QR-Code
+            สแกน QR Code
           </button>
         </div>
         {formData.purchaseChannel === "ร้านค้าตัวแทนจำหน่าย" && (
@@ -271,13 +317,12 @@ const Register = (props) => {
               รหัสร้านค้า
               <input
                 type="text"
-                name="storeCode"
-                value={JSON.stringify(storeQR.storeCode.value)}
+                name="storeQR"
+                value={formData.storeQR}
                 onChange={handleChange}
-                placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
+                placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 style={{ fontSize: "1rem" }}
-                disabled
               />
             </label>
             <button
@@ -285,7 +330,7 @@ const Register = (props) => {
               onClick={handleScanStoreQR}
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              สแกน QR-Code
+              สแกน QR Code
             </button>
           </div>
         )}
@@ -302,6 +347,9 @@ const Register = (props) => {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               style={{ fontSize: "1rem" }}
             >
+              <option value="" disabled>
+                เลือกประเภทสินค้า
+              </option>
               <option value="1. กระจกกันรอยเต็มจอแบบด้าน เฉพาะรุ่น iphone เท่านั้น">
                 1. กระจกกันรอยเต็มจอแบบด้าน เฉพาะรุ่น iphone เท่านั้น
               </option>

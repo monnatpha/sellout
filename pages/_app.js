@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
   const [liffObject, setLiffObject] = useState(null);
   const [liffError, setLiffError] = useState(null);
 
-  // Execute liff.init() when the app is initialized
   useEffect(() => {
     console.log("start liff.init()...");
     liff
@@ -19,7 +18,6 @@ function MyApp({ Component, pageProps }) {
         liff.ready.then(() => {
           console.log("liff.ready() done");
           setLiffObject(liff);
-          // do something you want when liff.init finishes
         });
       })
       .catch((error) => {
@@ -33,8 +31,6 @@ function MyApp({ Component, pageProps }) {
       });
   }, []);
 
-  // Provide `liff` object and `liffError` object
-  // to page component as property
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
   return (
