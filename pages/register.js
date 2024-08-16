@@ -136,7 +136,8 @@ const Register = (props) => {
           if (fw == null || fw == "") {
             toast.error("ไม่พบข้อมูลใน QR Code");
           }
-          setFormData({ productQR: fw });
+
+          setFormData(...formData, { productQR: fw });
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
           toast.error("QR Code ไม่ถูกต้อง");
@@ -158,7 +159,7 @@ const Register = (props) => {
           if (customerNo == null || customerNo == "") {
             toast.error("ไม่พบข้อมูลใน QR Code");
           }
-          setFormData({ storeQR: customerNo });
+          setFormData(...formData, { storeQR: customerNo });
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
           toast.error("QR Code ไม่ถูกต้อง");
