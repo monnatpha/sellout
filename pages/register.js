@@ -130,7 +130,7 @@ const Register = (props) => {
       .scanCodeV2()
       .then((result) => {
         try {
-          const urlObj = new URL(result);
+          const urlObj = new URL(result.value);
           const params = new URLSearchParams(urlObj.search);
           const fw = params.get("fw");
           if (fw == null || fw == "") {
@@ -152,7 +152,7 @@ const Register = (props) => {
       .scanCodeV2()
       .then((result) => {
         try {
-          const urlObj = new URL(result);
+          const urlObj = new URL(result.value);
           const params = new URLSearchParams(urlObj.search);
           const customerNo = params.get("customerNo");
           if (customerNo == null || customerNo == "") {
