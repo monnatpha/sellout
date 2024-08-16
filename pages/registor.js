@@ -86,7 +86,8 @@ const Register = (props) => {
     liff
       .scanCodeV2()
       .then((result) => {
-        const params = new URLSearchParams(result.value);
+        const urlObj = new URL(result.value);
+        const params = new URLSearchParams(urlObj.search);
         const fwValue = params.get("fw");
         setProductQR({ productCode: fwValue });
       })
@@ -103,7 +104,8 @@ const Register = (props) => {
     liff
       .scanCodeV2()
       .then((result) => {
-        const innerObject = JSON.parse(result.value);
+        const outerObject = JSON.parse(result);
+        const innerObject = JSON.parse(outerObject.value);
         const customerNo = innerObject.customerNo;
         setStoreQR({ storeCode: customerNo });
       })
@@ -275,6 +277,7 @@ const Register = (props) => {
                 placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 style={{ fontSize: "1rem" }}
+                disabled
               />
             </label>
             <button
