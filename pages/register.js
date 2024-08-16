@@ -66,8 +66,8 @@ const Register = (props) => {
         }),
       });
       const data = await response.json();
-
       toast.success("ลงทะเบียนสำเร็จ");
+      liff.closeWindow();
     } catch (error) {
       toast.error("ลงทะเบียนไม่สำเร็จ");
     }
