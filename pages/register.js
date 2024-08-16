@@ -140,7 +140,7 @@ const Register = (props) => {
           setFormData(...formData, { productQR: fw });
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
-          toast.error("QR Code ไม่ถูกต้อง", error);
+          toast.error(`QR Code ไม่ถูกต้อง ${error}`);
         }
       })
       .catch((error) => {
@@ -162,7 +162,7 @@ const Register = (props) => {
           setFormData(...formData, { storeQR: customerNo });
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
-          toast.error("QR Code ไม่ถูกต้อง", error);
+          toast.error(`QR Code ไม่ถูกต้อง ${error}`);
         }
       })
       .catch((error) => {
