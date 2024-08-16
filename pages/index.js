@@ -7,30 +7,10 @@ import { toast } from "react-toastify";
 export default function Home(props) {
   const { liff, liffError } = props;
   if (liff != null) {
-    console.log(liff.getVersion());
-
-    console.log(liff.getOS());
-    console.log(liff.getIDToken(), "getIDToken");
-    console.log(liff.getAccessToken(), "getAccessToken");
-
     liff.getIDToken();
     liff.getAccessToken();
   }
-  console.log(props, "props");
 
-  const handleScanProductQR = () => {
-    liff
-      .scanCodeV2()
-      .then((result) => {
-        // result = { value: "" }
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
-  const handleGetProfile = () => {
-    console.log(liff.getProfile());
-  };
   // const { liff, liffError } = props;
 
   // if (loading) return <p>Loading...</p>;
@@ -42,8 +22,7 @@ export default function Home(props) {
         <h1 className="text-3xl font-black mb-4 text-blue-700">
           ติดฟิล์มโฟกัส ลุ้นของพรีเมี่ยมฟรี 100 รางวัล
         </h1>
-        <button onClick={handleScanProductQR}>scan</button>
-        <p>gg</p>
+
         <p className="mb-4">
           เพียงซื้อ กระจกกันรอยโฟกัสสำหรับ iPhone ที่ร่วมรายการ
           (ตรวจสอบสินค้าที่ร่วมรายการในตารางด้านล่าง)

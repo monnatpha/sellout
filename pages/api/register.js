@@ -12,6 +12,8 @@ export default async function handler(req, res) {
       productCategory,
       mobileModel,
       acceptPDPA,
+      id,
+      acc,
     } = req.body;
 
     console.log("Request body:", req.body);

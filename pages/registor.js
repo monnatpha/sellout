@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import liff from "@line/liff";
 
-const Register = () => {
+const Register = (props) => {
+  const { liff, liffError } = props;
+  if (liff != null) {
+    liff.getIDToken();
+    liff.getAccessToken();
+  }
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -23,8 +28,8 @@ const Register = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    setProductQR({ ...productQR, [name]: value });
-    setStoreQR({ ...storeQR, [name]: value });
+    // setProductQR({ ...productQR, [name]: value });
+    // setStoreQR({ ...storeQR, [name]: value });
   };
 
   const [productQR, setProductQR] = useState({
@@ -50,7 +55,8 @@ const Register = () => {
     e.preventDefault();
     try {
       console.log("Form submitted:", formData);
-
+      const id = liff.getIDToken();
+      const acc = liff.getAccessToken();
       const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,6 +70,8 @@ const Register = () => {
           productCategory,
           modelMobile,
           acceptPDPA,
+          id,
+          acc,
         }),
       });
       const data = await response.json();
@@ -75,22 +83,25 @@ const Register = () => {
   };
 
   const handleScanProductQR = () => {
-    // Function to handle button click
-    alert(productQR.productCode);
-    // liff
-    //   .scanCodeV2()
-    //   .then((result) => {
-    //     console.log(result, "result");
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
-    toast.success("ลงทะเบียนสำเร็จ");
+    liff
+      .scanCodeV2()
+      .then((result) => {
+        setProductQR({ productCode: result });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   const handleScanStoreQR = () => {
-    // Function to handle button click
-    alert(storeQR.storeCode);
+    liff
+      .scanCodeV2()
+      .then((result) => {
+        setStoreQR({ storeCode: result });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
   // const [scannedData, setScannedData] = useState("");
 
