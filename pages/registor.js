@@ -83,15 +83,14 @@ const Register = (props) => {
   };
 
   const handleScanProductQR = () => {
-    setProductQR({ productCode: "result1" });
-    // liff
-    //   .scanCodeV2()
-    //   .then((result) => {
-    //     setProductQR({ productCode: result });
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
+    liff
+      .scanCodeV2()
+      .then((result) => {
+        setProductQR({ productCode: result });
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   const handleScanStoreQR = () => {
@@ -212,7 +211,7 @@ const Register = (props) => {
             <input
               type="text"
               name="productCode"
-              value={productQR.productCode}
+              value={JSON.stringify(productQR.productCode, 0, null, 2)}
               onChange={handleChange}
               placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
               required
@@ -229,37 +228,41 @@ const Register = (props) => {
             สแกน QR-Code
           </button>
         </div>
-        <div>
-          <label className="block text-lg font-medium mb-2">
-            ร้านค้าตัวแทนจำหน่าย
-            <span className="text-red-500"> *</span>
-            <select
-              name="agentStore"
-              value={formData.agentStore}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              style={{ fontSize: "1rem" }}
-            >
-              <option value="" disabled>
-                เลือกร้านค้าตัวแทนจำหน่าย
-              </option>
-              <option value="electronics">อิเล็กทรอนิกส์</option>
-              <option value="clothing">เสื้อผ้า</option>
-              <option value="furniture">เฟอร์นิเจอร์</option>
-              <option value="books">หนังสือ</option>
-              <option value="other">อื่นๆ</option>
-            </select>
-          </label>
-        </div>
-        {formData.agentStore === "other" && (
+        {formData.purchaseChannel === "ร้านค้าตัวแทนจำหน่าย" && (
+          <div>
+            <label className="block text-lg font-medium mb-2">
+              ร้านค้าตัวแทนจำหน่าย
+              <span className="text-red-500"> *</span>
+              <select
+                name="agentStore"
+                value={formData.agentStore}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                style={{ fontSize: "1rem" }}
+              >
+                <option value="" disabled>
+                  เลือกร้านค้าตัวแทนจำหน่าย
+                </option>
+                <option value="425 Degree Store">425 Degree Store</option>
+                <option value="Ais Store">Ais Store</option>
+                <option value="Jaymart">Jaymart</option>
+                <option value="Samsung Store">Samsung Store</option>
+                <option value="TG Fone">TG Fone</option>
+                <option value="True Shop">True Shop</option>
+                <option value="อื่นๆ">อื่นๆ</option>
+              </select>
+            </label>
+          </div>
+        )}
+        {formData.agentStore === "อื่นๆ" && (
           <div>
             <label className="block text-lg font-medium mb-2">
               รหัสร้านค้า
               <input
                 type="text"
                 name="storeCode"
-                value={storeQR.storeCode}
+                value={JSON.stringify(storeQR.storeCode)}
                 onChange={handleChange}
                 placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR-Code ที่ด้านล่าง"
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -275,6 +278,7 @@ const Register = (props) => {
             </button>
           </div>
         )}
+
         <div>
           <label className="block text-lg font-medium mb-2">
             ประเภทสินค้า
