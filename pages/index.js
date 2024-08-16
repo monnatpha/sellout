@@ -6,13 +6,37 @@ import { toast } from "react-toastify";
 
 export default function Home(props) {
   const { liff, liffError } = props;
-  // console.log(liff.getVersion());
+  if (liff != null) {
+    console.log(liff.getVersion());
+
+    console.log(liff.getOS());
+  }
+  console.log(props, "props");
+
+  const handleScanProductQR = () => {
+    liff
+      .scanCodeV2()
+      .then((result) => {
+        // result = { value: "" }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+  const handleGetProfile = () => {
+    console.log(liff.getProfile());
+  };
+  // const { liff, liffError } = props;
+
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">
+        <button onClick={handleScanProductQR}>scan</button>
+        <p>gg</p>
+        <button onClick={handleGetProfile}>getprofile</button>
         <h1 className="text-3xl font-black mb-4 text-blue-700">
           ติดฟิล์มโฟกัส ลุ้นของพรีเมี่ยมฟรี 100 รางวัล
         </h1>

@@ -14,16 +14,13 @@ export default async function handler(req, res) {
       acceptPDPA,
     } = req.body;
 
-    // Log the request body
     console.log("Request body:", req.body);
 
     try {
-      // Test database connection
       console.log("Testing database connection...");
       await db.query("SELECT 1");
       console.log("Database connection successful.");
 
-      // Log parameters for stored procedure
       console.log("Calling stored procedure with parameters:", [
         "lineId",
         "liffId",
@@ -38,7 +35,6 @@ export default async function handler(req, res) {
         acceptPDPA,
       ]);
 
-      // Call the stored procedure
       const [result] = await db.query(
         "CALL sp_insert_sellout_privilege_privacy_register(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
@@ -56,13 +52,9 @@ export default async function handler(req, res) {
         ]
       );
 
-      // Log successful result
       console.log("Stored procedure result:", result);
-
-      // Send a success response
       res.status(201).json({ message: "User inserted successfully", result });
     } catch (error) {
-      // Log detailed error information
       console.error("Error inserting user:", {
         message: error.message,
         stack: error.stack,
@@ -70,8 +62,6 @@ export default async function handler(req, res) {
         sqlState: error.sqlState,
         errno: error.errno,
       });
-
-      // Send an error response
       res.status(500).json({ error: "Failed to insert user" });
     }
   } else {
