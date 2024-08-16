@@ -92,7 +92,7 @@ const Register = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า 2</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า 3</h1>
       {/* <div className="p-4">
         <h1 className="text-2xl font-bold mb-4">QR Code Scanner</h1>
         <QRCodeScannerComponent onScan={handleScan} />
