@@ -1,4 +1,3 @@
-// pages/api/insertUser.js
 import { db } from "../../utils/db";
 
 export default async function handler(req, res) {
@@ -14,8 +13,13 @@ export default async function handler(req, res) {
       mobileModel,
       acceptPDPA,
     } = req.body;
+
     try {
-      console.log(req.body, "be");
+      console.log(req.body, "Received body");
+
+      // Test database connection
+      await db.query("SELECT 1");
+
       // Call the stored procedure
       const [result] = await db.query(
         "CALL sp_insert_sellout_privilege_privacy_register(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -33,6 +37,7 @@ export default async function handler(req, res) {
           acceptPDPA,
         ]
       );
+
       // Send a success response
       res.status(201).json({ message: "User inserted successfully", result });
     } catch (error) {
