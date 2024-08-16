@@ -1,10 +1,10 @@
 import mysql from "mysql2/promise";
 
 export const db = mysql.createPool({
-  host: "db-mysql-warranty-focus-do-user-11166996-0.c.db.ondigitalocean.com",
-  user: "userfocus",
-  password: "gKHovcjKhNLlXu2",
-  database: "focus",
+  host: "db-saleplus-zt-do-user-16212651-0.c.db.ondigitalocean.com",
+  user: "saleplusdemo",
+  password: "AVNS_Cw3xBIZXgkL_Jjg05mI",
+  database: "TestMonnat",
   port: 25060,
   connectTimeout: 50000,
 });
