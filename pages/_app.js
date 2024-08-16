@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }) {
 
   // Provide `liff` object and `liffError` object
   // to page component as property
-
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
   return (
@@ -39,3 +38,5 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
+export default MyApp;

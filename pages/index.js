@@ -5,36 +5,8 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 
 export default function Home(props) {
-  /** You can access to liff and liffError object through the props.
-   *  const { liff, liffError } = props;
-   *  console.log(liff.getVersion());
-   *
-   *  Learn more about LIFF API documentation (https://developers.line.biz/en/reference/liff)
-   **/
-
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchPosts() {
-  //     try {
-  //       const response = await fetch("/api/posts");
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       setPosts(data.slice(0, 5)); // Display only the first 10 items
-  //     } catch (error) {
-  //       setError(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchPosts();
-  // }, []);
-
+  const { liff, liffError } = props;
+  // console.log(liff.getVersion());
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
 
