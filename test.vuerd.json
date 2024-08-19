@@ -70,6 +70,29 @@
             "id": "085dc850-aba8-4d52-8a30-98680b2de279"
           },
           {
+            "name": "liff_id",
+            "comment": "",
+            "dataType": "varchar(255)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 75.6962890625,
+              "widthDefault": 60
+            },
+            "id": "4688f83f-42a7-454a-be19-718a2a8ea67c"
+          },
+          {
             "name": "line_user_id",
             "comment": "",
             "dataType": "varchar(255)",
@@ -350,7 +373,7 @@
           "active": false,
           "left": 199,
           "top": 101,
-          "zIndex": 148,
+          "zIndex": 161,
           "widthName": 194.20703125,
           "widthComment": 60
         },

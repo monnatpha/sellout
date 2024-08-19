@@ -7,48 +7,29 @@ import { ToastContainer } from "react-toastify";
 function MyApp({ Component, pageProps }) {
   const [liffObject, setLiffObject] = useState(null);
   const [liffError, setLiffError] = useState(null);
-  const [userProfile, setUserProfile] = useState(null);
 
   useEffect(() => {
+    console.log("start liff.init()...");
     liff
-      .init({ liffId: "2006057945-Nry8JeBK" }) // Initialize LIFF with your LIFF ID
+      .init({ liffId: "2006057945-Nry8JeBK" })
       .then(() => {
-        if (liff.isLoggedIn()) {
-          liff
-            .getProfile()
-            .then((profile) => {
-              const userId = profile.userId;
-              const displayName = profile.displayName;
-              const pictureUrl = profile.pictureUrl;
-              const statusMessage = profile.statusMessage;
+        console.log("liff.init() done");
 
-              console.log("User ID:", userId);
-              console.log("Display Name:", displayName);
-              console.log("Profile Picture URL:", pictureUrl);
-              console.log("Status Message:", statusMessage);
-
-              // You can use this information to update your UI or state
-              setUserProfile({
-                userId,
-                displayName,
-                pictureUrl,
-                statusMessage,
-              });
-            })
-            .catch((error) => {
-              console.error("Error getting profile:", error);
-              toast.error("Failed to get profile information.");
-            });
-        } else {
-          liff.login(); // Redirect to LINE login if not logged in
-        }
+        liff.ready.then(() => {
+          console.log("liff.ready() done");
+          setLiffObject(liff);
+        });
       })
       .catch((error) => {
-        console.error("LIFF initialization failed:", error);
-        toast.error("LIFF initialization failed.");
-      }),
-      [];
-  });
+        console.log(`liff.init() failed: ${error}`);
+        if (!process.env.liffId) {
+          console.info(
+            "LIFF Starter: Please make sure that you provided `LIFF_ID` as an environmental variable."
+          );
+        }
+        setLiffError(error.toString());
+      });
+  }, []);
 
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
