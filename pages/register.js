@@ -173,13 +173,13 @@ const Register = (props) => {
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
-      {/* <button
+      {/* <butto
         type="button"
         onClick={lark}
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         LARK
-      </button> */}
+      </butto> */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-lg font-medium mb-2">
