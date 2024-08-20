@@ -1,5 +1,6 @@
 import { db } from "../../utils/db";
-import { sendLarkSuccess } from "../functions/sendLarkSuccess";
+import { sendLarkFailed } from "./functions/sendLarkFailed";
+import { sendLarkSuccess } from "./functions/sendLarkSuccess";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

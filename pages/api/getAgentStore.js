@@ -1,5 +1,5 @@
 import { db } from "../../utils/db";
-import { sendLarkFailed } from "../functions/sendLarkFailed";
+import { sendLarkFailed } from "./functions/sendLarkFailed";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
