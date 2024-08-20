@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     console.log("start liff.init()...");
     liff
-      .init({ liffId: "2006057945-Nry8JeBK" })
+      .init({ liffId: process.env.LIFF_ID })
       .then(() => {
         console.log("liff.init() done");
 

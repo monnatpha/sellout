@@ -12,16 +12,14 @@ export default async function handler(req, res) {
       productCategory,
       mobileModel,
       acceptPDPA,
-      id,
-      acc,
+      userLineId,
     } = req.body;
 
     try {
       const [result] = await db.query(
-        "CALL SLZS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "CALL SLZS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-          "lineId",
-          "liffId",
+          userLineId,
           fullName,
           phoneNumber,
           purchaseChannel,

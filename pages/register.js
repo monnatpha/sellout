@@ -64,16 +64,13 @@ const Register = (props) => {
     const { phoneNumber, ...rest } = formData;
     const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
     try {
-      const id = liff.getIDToken();
-      const acc = liff.getAccessToken();
       const response = await fetch("/api/insert", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...rest,
           phoneNumber: formattedPhoneNumber,
-          id,
-          acc,
+          userLineId: props.liff.getContext().userId,
         }),
       });
       const data = await response.json();
@@ -150,7 +147,7 @@ const Register = (props) => {
         );
         const data = await response.json();
         const check = data.result[0][0].count;
-        console.log(check, "check");
+
         if (check === 0) {
           toast.success("Store Code สามารถใช้งานได้");
         } else {
@@ -211,8 +208,11 @@ const Register = (props) => {
           placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
           onBlur={handleBlur}
         />
-
-        <Button onClick={() => handleScanQR("product")} text="สแกน QR Code" />
+        <Button
+          onClick={() => handleScanQR("product")}
+          text="สแกน QR Code"
+          type="button"
+        />
         {formData.purchaseChannel === "pc_9a0278d8" && (
           <SelectField
             label="ร้านค้าตัวแทนจำหน่าย"
@@ -234,7 +234,11 @@ const Register = (props) => {
               placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
               onBlur={handleBlur}
             />
-            <Button onClick={() => handleScanQR("store")} text="สแกน QR Code" />
+            <Button
+              onClick={() => handleScanQR("store")}
+              text="สแกน QR Code"
+              type="button"
+            />
           </>
         )}
         <SelectField
@@ -331,7 +335,7 @@ const SelectField = ({ label, options, ...props }) => (
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         style={{ fontSize: "1rem" }}
       >
-        <option value="" disabled>
+        <option value="" disabled key="1">
           เลือก
         </option>
         {options.map((item) => (
