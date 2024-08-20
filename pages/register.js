@@ -45,7 +45,6 @@ const Register = (props) => {
     phoneNumber: "",
     purchaseChannel: "",
     agentStore: "",
-    productCode: "",
     mobileModel: "",
     acceptPDPA: false,
     productQR: "",
@@ -65,7 +64,6 @@ const Register = (props) => {
     const { phoneNumber, ...rest } = formData;
     const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
     try {
-      console.log("Form submitted:", formData);
       const id = liff.getIDToken();
       const acc = liff.getAccessToken();
       const response = await fetch("/api/insert", {
@@ -115,6 +113,59 @@ const Register = (props) => {
       });
   };
 
+  const handleBlur = async (value, name) => {
+    if (name === "รหัสสินค้า") await checkProdctCode(value);
+    if (name === "รหัสร้านค้า") await checkStoreCode(value);
+  };
+
+  const checkProdctCode = async (value) => {
+    if (value) {
+      try {
+        const response = await fetch(
+          `/api/checkDuplicateProductCode?productCode=${encodeURIComponent(
+            value
+          )}`
+        );
+        const data = await response.json();
+        const check = data.result[0][0].count;
+        if (check === 0) {
+          toast.success("Product Code สามารถใช้งานได้");
+        } else {
+          toast.warn("Product Code นี้ถูกใช้งานแล้ว");
+          setFormData((prevData) => ({
+            ...prevData,
+            productQR: "",
+          }));
+        }
+      } catch (error) {
+        toast.error("ตรวจสอบ Product Code ไม่สำเร็จ");
+      }
+    }
+  };
+  const checkStoreCode = async (value) => {
+    if (value) {
+      try {
+        const response = await fetch(
+          `/api/checkStoreCode?storeCode=${encodeURIComponent(value)}`
+        );
+        const data = await response.json();
+        const check = data.result[0][0].count;
+        console.log(check, "check");
+        if (check === 0) {
+          toast.success("Store Code สามารถใช้งานได้");
+        } else {
+          toast.warn("Store Code นี้ถูกใช้งานแล้ว");
+          setFormData((prevData) => ({
+            ...prevData,
+            storeQR: "",
+          }));
+        }
+      } catch (error) {
+        toast.error("ตรวจสอบ Store Code ไม่สำเร็จ");
+      }
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -150,7 +201,7 @@ const Register = (props) => {
           onChange={handleChange}
           required
         />
-        <InputField
+        <InputCodeField
           label="รหัสสินค้า"
           name="productQR"
           type="text"
@@ -158,7 +209,9 @@ const Register = (props) => {
           onChange={handleChange}
           required
           placeholder="กรอกรหัสสินค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
+          onBlur={handleBlur}
         />
+
         <Button onClick={() => handleScanQR("product")} text="สแกน QR Code" />
         {formData.purchaseChannel === "pc_9a0278d8" && (
           <SelectField
@@ -172,13 +225,14 @@ const Register = (props) => {
         )}
         {formData.agentStore === "as_d04fef37" && (
           <>
-            <InputField
+            <InputCodeField
               label="รหัสร้านค้า"
               name="storeQR"
               type="text"
               value={formData.storeQR}
               onChange={handleChange}
               placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
+              onBlur={handleBlur}
             />
             <Button onClick={() => handleScanQR("store")} text="สแกน QR Code" />
           </>
@@ -219,6 +273,21 @@ const InputField = ({ label, ...props }) => (
       <span className="text-red-500"> *</span>
       <input
         {...props}
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        style={{ fontSize: "1rem" }}
+      />
+    </label>
+  </div>
+);
+
+const InputCodeField = ({ label, onBlur, ...props }) => (
+  <div>
+    <label className="block text-lg font-medium mb-2">
+      {label}
+      <span className="text-red-500"> *</span>
+      <input
+        {...props}
+        onBlur={(e) => onBlur(e.target.value, label)}
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         style={{ fontSize: "1rem" }}
       />
