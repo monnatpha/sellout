@@ -1,8 +1,4 @@
-import Head from "next/head";
-import packageJson from "../package.json";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { toast } from "react-toastify";
 
 export default function Home(props) {
   return (

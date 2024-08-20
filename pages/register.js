@@ -10,6 +10,7 @@ const Register = (props) => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [checkQR, setCheckQR] = useState(1);
 
   const fetchOptions = async (endpoint, optionName) => {
     try {
@@ -60,24 +61,28 @@ const Register = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { phoneNumber, ...rest } = formData;
-    const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
-    try {
-      const response = await fetch("/api/insert", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...rest,
-          phoneNumber: formattedPhoneNumber,
-          userLineId: props.liff.getContext().userId,
-        }),
-      });
-      const data = await response.json();
-      toast.success("ลงทะเบียนสำเร็จ");
-      liff.closeWindow();
-    } catch (error) {
-      toast.error("ลงทะเบียนไม่สำเร็จ");
+    if (checkQR === 0) {
+      e.preventDefault();
+      const { phoneNumber, ...rest } = formData;
+      const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
+      try {
+        const response = await fetch("/api/insert", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...rest,
+            phoneNumber: formattedPhoneNumber,
+            userLineId: props.liff.getContext().userId,
+          }),
+        });
+        const data = await response.json();
+        toast.success("ลงทะเบียนสำเร็จ");
+        liff.closeWindow();
+      } catch (error) {
+        toast.error("ลงทะเบียนไม่สำเร็จ");
+      }
+    } else {
+      toast.error("โปรดตรวจสอบรหัสสินค้า");
     }
   };
 
@@ -125,6 +130,7 @@ const Register = (props) => {
         );
         const data = await response.json();
         const check = data.result[0][0].count;
+        setCheckQR(check);
         if (check === 0) {
           toast.success("Product Code สามารถใช้งานได้");
         } else {
@@ -142,6 +148,13 @@ const Register = (props) => {
   const checkStoreCode = async (value) => {
     if (value) {
       try {
+        liff.sendMessages([
+          {
+            type: "text",
+            text: "Hello, World!",
+          },
+        ]);
+
         const response = await fetch(
           `/api/checkStoreCode?storeCode=${encodeURIComponent(value)}`
         );
@@ -288,7 +301,7 @@ const InputCodeField = ({ label, onBlur, ...props }) => (
   <div>
     <label className="block text-lg font-medium mb-2">
       {label}
-      <span className="text-red-500"> *</span>
+      {label == "รหัสสินค้า" ? <span className="text-red-500"> *</span> : <></>}
       <input
         {...props}
         onBlur={(e) => onBlur(e.target.value, label)}
