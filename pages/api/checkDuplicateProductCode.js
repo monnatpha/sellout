@@ -1,4 +1,5 @@
 import { db } from "../../utils/db";
+import { sendLarkFailed } from "../functions/sendLarkFailed";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -6,11 +7,12 @@ export default async function handler(req, res) {
 
     try {
       const [result] = await db.query(
-        "CALL SLZS_Check_DuplicateProductCode(?)",
+        "CALL WRFS_Check_DuplicateProductCode(?)",
         [productCode]
       );
       res.status(200).json({ result });
     } catch (error) {
+      await sendLarkFailed(error, "checkDuplicateProductCode");
       res.status(500).json({ error: "Failed to Check duplicate product code" });
     }
   } else {

@@ -179,83 +179,10 @@ const Register = (props) => {
     return <div>Loading...</div>;
   }
 
-  const lark = async () => {
-    console.log("xxx");
-    const card = await createCardMedia("มีคำขอสื่อ", "รหัสงาน");
-    await POST_LARK_CARD(
-      "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
-      card
-    );
-  };
-
-  const createCardMedia = async (title, message) => {
-    const elements = [
-      {
-        tag: "div",
-        text: {
-          tag: "plain_text",
-          content: message,
-        },
-      },
-      {
-        tag: "hr",
-      },
-    ];
-
-    return {
-      msg_type: "interactive",
-      card: {
-        config: {
-          wide_screen_mode: true,
-          enable_forward: true,
-        },
-        header: {
-          title: {
-            tag: "plain_text",
-            content: title,
-          },
-        },
-        elements,
-      },
-    };
-  };
-
-  const POST_LARK_CARD = async (url, card) => {
-    // new Promise((resolve, reject) => {
-    //   fetch(url, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(card),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((json) => resolve(json))
-    //     .catch((err) => {
-    //       console.log(err);
-    //       reject(err);
-    //     });
-    // });
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(card),
-      });
-
-      console.log(response, "response");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <button onClick={() => lark()}> lark </button>
         <InputField
           label="ชื่อ-นามสกุล"
           name="fullName"
@@ -299,7 +226,7 @@ const Register = (props) => {
           text="สแกน QR Code"
           type="button"
         />
-        {formData.purchaseChannel === "pc_9a0278d8" && (
+        {formData.purchaseChannel === "pcl_66818716" && (
           <SelectField
             label="ร้านค้าตัวแทนจำหน่าย"
             name="agentStore"
@@ -310,7 +237,7 @@ const Register = (props) => {
           />
         )}
         {formData.agentStore === "as_d04fef37" &&
-          formData.purchaseChannel === "pc_9a0278d8" && (
+          formData.purchaseChannel === "pcl_66818716" && (
             <>
               <InputCodeField
                 label="รหัสร้านค้า"

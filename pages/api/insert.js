@@ -1,4 +1,5 @@
 import { db } from "../../utils/db";
+import { sendLarkSuccess } from "../functions/sendLarkSuccess";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
 
     try {
       const [result] = await db.query(
-        "CALL SLZS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "CALL WRFS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           userLineId,
           fullName,
@@ -31,8 +32,21 @@ export default async function handler(req, res) {
           acceptPDPA,
         ]
       );
+      await sendLarkSuccess({
+        fullName,
+        phoneNumber,
+        purchaseChannel,
+        productQR,
+        agentStore,
+        storeQR,
+        productCategory,
+        mobileModel,
+        acceptPDPA,
+        userLineId,
+      });
       res.status(201).json({ message: "User inserted successfully", result });
     } catch (error) {
+      await sendLarkFailed(error, "insert");
       res.status(500).json({ error: "Failed to insert user" });
     }
   } else {
