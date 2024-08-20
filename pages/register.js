@@ -170,7 +170,7 @@ const Register = (props) => {
             required
           />
         )}
-        {formData.agentStore === "อื่นๆ" && (
+        {formData.agentStore === "as_d04fef37" && (
           <>
             <InputField
               label="รหัสร้านค้า"
