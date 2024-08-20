@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       ]);
 
       const [result] = await db.query(
-        "CALL sp_insert_sellout_privilege_privacy_register(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "CALL SLZS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "lineId",
           "liffId",

@@ -5,17 +5,6 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 
 export default function Home(props) {
-  const { liff, liffError } = props;
-  if (liff != null) {
-    liff.getIDToken();
-    liff.getAccessToken();
-  }
-
-  // const { liff, liffError } = props;
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
-
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">
