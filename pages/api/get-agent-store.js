@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       const [result] = await db.query("CALL WRFS_Option_AgentStore");
       res.status(200).json({ result });
     } catch (error) {
-      await sendLarkFailed(error, "getAgentStore");
+      await sendLarkFailed(error, "get-agent-store");
       res.status(500).json({ error: "Failed to fetch option agent store" });
     }
   } else {

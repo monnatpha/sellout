@@ -31,10 +31,10 @@ const Register = (props) => {
   useEffect(() => {
     const fetchAllOptions = async () => {
       await Promise.all([
-        fetchOptions("getProductCategory", "productCategory"),
-        fetchOptions("getPruchaseChannel", "purchaseChannel"),
-        fetchOptions("getAgentStore", "agentStore"),
-        fetchOptions("getModel", "mobileModel"),
+        fetchOptions("get-product-category", "product-category"),
+        fetchOptions("get-purchase-channel", "purchase-channel"),
+        fetchOptions("get-agent-store", "agent-store"),
+        fetchOptions("get-model", "model"),
       ]);
       setLoading(false);
     };
@@ -130,7 +130,7 @@ const Register = (props) => {
     if (value) {
       try {
         const response = await fetch(
-          `/api/checkDuplicateProductCode?productCode=${encodeURIComponent(
+          `/api/check-duplicate-product-code?productCode=${encodeURIComponent(
             value
           )}`
         );
@@ -155,7 +155,7 @@ const Register = (props) => {
     if (value) {
       try {
         const response = await fetch(
-          `/api/checkStoreCode?storeCode=${encodeURIComponent(value)}`
+          `/api/check-store-code?storeCode=${encodeURIComponent(value)}`
         );
         const data = await response.json();
         const check = data.result[0][0].count;
