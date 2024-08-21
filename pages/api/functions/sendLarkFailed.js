@@ -12,13 +12,13 @@ export const sendLarkFailed = async (obj, url) => {
 };
 
 export const createMessageMediaSalesLark = async (obj, headMsg, url) => {
-  const title = `🔔  ${headMsg}  🔔`;
+  const title = `🧨 ${headMsg} 🧨`;
   const message = `🏷  url: ${url}  
-  code: ${obj.code}
-  error: ${obj.error}
-  sql: ${obj.sql}
-  sqlState: ${obj.sqlState}
-  sqlMessage: ${obj.sqlMessage}`;
+  🚫 code: ${obj.code}
+  📛 error: ${obj.error}
+  ⛔️ sql: ${obj.sql}
+  💢 sqlState: ${obj.sqlState}
+  🆘 sqlMessage: ${obj.sqlMessage}`;
   return { title, message };
 };
 

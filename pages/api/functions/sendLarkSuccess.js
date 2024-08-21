@@ -24,21 +24,23 @@ export const createMessageMediaSalesLark = async (obj, headMsg) => {
     userLineId,
   } = obj;
 
-  const title = `🔔  ${headMsg}  🔔`;
-  const message = `🏷  รหัสไลน์: ${userLineId}
-👨‍💻  ข้อมูลผู้ใช้
+  const title = `🟢🎉🎈🎊 ${headMsg} 🎊🎈🎉 🟢`;
+  const message = `🆔 รหัสไลน์: ${userLineId}
+🪪 ข้อมูลผู้ใช้
 ชื่อ-นามสกุล: ${fullName}
 เบอร์โทรศัพท์: ${phoneNumber}
 
-🏢  ข้อมูลที่ลงทะเบียน
-ช่องทางการสั่งซื้อ: ${purchaseChannel}
+📦 ข้อมูลสินค้า
 รหัสสินค้า: ${productQR}
-ร้านค้าตัวแทนจำหน่าย: ${agentStore}
-รหัสร้านค้า: ${storeQR}
 ประเภทสินค้า: ${productCategory}
 รุ่นมือถือ: ${mobileModel}
-ยอมรับเงื่อนไข PDPA: ${acceptPDPA}
-`;
+
+🏠 ข้อมูลร้านค้า
+ช่องทางการสั่งซื้อ: ${purchaseChannel}
+ร้านค้าตัวแทนจำหน่าย: ${agentStore}
+รหัสร้านค้า: ${storeQR}
+
+📝 ยอมรับเงื่อนไข PDPA: ${acceptPDPA}`;
   return { title, message };
 };
 
