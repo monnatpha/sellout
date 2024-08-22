@@ -11,6 +11,7 @@ const Register = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [checkQR, setCheckQR] = useState(1);
+  const [btnDisable, setBtnDisable] = useState(false);
 
   const fetchOptions = async (endpoint, optionName) => {
     try {
@@ -41,7 +42,7 @@ const Register = (props) => {
     };
     fetchAllOptions();
   }, []);
-  console.log(options, "options");
+
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -63,6 +64,7 @@ const Register = (props) => {
 
   const handleSubmit = async (e) => {
     if (checkQR === 0) {
+      setBtnDisable(true);
       e.preventDefault();
       const { phoneNumber, ...rest } = formData;
       const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
@@ -84,6 +86,7 @@ const Register = (props) => {
             text: "ลงทะเบียนสำเร็จ",
           },
         ]);
+        setBtnDisable(false);
         liff.closeWindow();
       } catch (error) {
         toast.error("ลงทะเบียนไม่สำเร็จ");
@@ -185,6 +188,13 @@ const Register = (props) => {
     );
   }
 
+  if (btnDisable) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-blue-500"></div>
+      </div>
+    );
+  }
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
@@ -284,7 +294,7 @@ const Register = (props) => {
           onChange={handleChange}
           required
         />
-        <Button type="submit" text="ลงทะเบียน" />
+        <Button type="submit" text="ลงทะเบียน" disabled={btnDisable} />
       </form>
     </div>
   );
