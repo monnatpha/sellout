@@ -116,7 +116,7 @@ const Register = (props) => {
         try {
           const urlObj = new URL(result.value);
           const params = new URLSearchParams(urlObj.search);
-          const key = type === "product" ? "fw" : "customerNo";
+          const key = type === "รหัสสินค้า" ? "fw" : "customerNo";
           const value = params.get(key);
 
           if (!value) {
