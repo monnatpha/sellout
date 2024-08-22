@@ -9,21 +9,21 @@ export default async function handler(req, res) {
       res.status(200).json({
         success: true,
         message: "ดึงข้อมูลสำเร็จ",
-        result,
+        result: { items: result },
       });
     } catch (error) {
       await sendLarkFailed(error, "get-purchase-channel");
       res.status(500).json({
         success: false,
-        message: "ดึงข้อมูลไม่สำเร็จ",
-        result: error,
+        message: "ดึงข้อมูลไม่สำเร็จ (10001)",
+        result: "",
       });
     }
   } else {
     res.status(405).json({
       success: false,
-      message: "ดึงข้อมูลไม่สำเร็จ",
-      result: [],
+      message: "ดึงข้อมูลไม่สำเร็จ (10002)",
+      result: "",
     });
   }
 }

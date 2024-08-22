@@ -22,7 +22,7 @@ const Register = (props) => {
 
       setOptions((prevOptions) => ({
         ...prevOptions,
-        [optionName]: data.result[0],
+        [optionName]: data.result.items[0],
       }));
     } catch (error) {
       console.error(`Error fetching ${optionName}:`, error);
@@ -339,29 +339,30 @@ const RadioGroup = ({ label, name, options, value, onChange, ...props }) => (
   </div>
 );
 
-const SelectField = ({ label, options, ...props }) => (
-  <div>
-    <label className="block text-lg font-medium mb-2">
-      {label}
-      <span className="text-red-500"> *</span>
-      <select
-        {...props}
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        style={{ fontSize: "1rem" }}
-      >
-        <option value="" disabled>
-          เลือก
-        </option>
-
-        {options.map((item) => (
-          <option key={item.id} value={item.id}>
-            {item.name}
+const SelectField = ({ label, options, ...props }) => {
+  return (
+    <div>
+      <label className="block text-lg font-medium mb-2">
+        {label}
+        <span className="text-red-500"> *</span>
+        <select
+          {...props}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          style={{ fontSize: "1rem" }}
+        >
+          <option value="" disabled selected>
+            เลือก
           </option>
-        ))}
-      </select>
-    </label>
-  </div>
-);
+          {options.map((item) => (
+            <option key={item.id} value={item.id} disabled={item?.disabled}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </label>
+    </div>
+  );
+};
 
 const Checkbox = ({ label, ...props }) => (
   <div>

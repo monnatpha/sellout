@@ -17,15 +17,15 @@ export default async function handler(req, res) {
       await sendLarkFailed(error, "check-duplicate-product-code");
       res.status(500).json({
         success: false,
-        message: "ดึงข้อมูลไม่สำเร็จ",
-        result: error,
+        message: "ดึงข้อมูลไม่สำเร็จ (10011)",
+        result: "",
       });
     }
   } else {
     res.status(405).json({
       success: false,
-      message: "ดึงข้อมูลไม่สำเร็จ",
-      result: [],
+      message: "ดึงข้อมูลไม่สำเร็จ (10012)",
+      result: "",
     });
   }
 }
