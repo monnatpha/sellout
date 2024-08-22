@@ -96,10 +96,10 @@ const Register = (props) => {
     }
   };
 
-  const handleScanQR = (type) => {
+  const handleScanQR = async (type) => {
     liff
       .scanCodeV2()
-      .then((result) => {
+      .then(async (result) => {
         try {
           const urlObj = new URL(result.value);
           const params = new URLSearchParams(urlObj.search);
@@ -115,6 +115,7 @@ const Register = (props) => {
             ...prevData,
             [type === "product" ? "productQR" : "storeQR"]: value,
           }));
+          await checkProdctCode(value);
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
