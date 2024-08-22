@@ -115,7 +115,6 @@ const Register = (props) => {
             ...prevData,
             [type === "product" ? "productQR" : "storeQR"]: value,
           }));
-          handleBlur(type, value);
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
@@ -180,7 +179,7 @@ const Register = (props) => {
     }
   };
 
-  if (loading) {
+  if (loading || btnDisable) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-blue-500"></div>
@@ -188,13 +187,6 @@ const Register = (props) => {
     );
   }
 
-  if (btnDisable) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-blue-500"></div>
-      </div>
-    );
-  }
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">ลงทะเบียนสินค้า</h1>
