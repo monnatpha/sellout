@@ -115,8 +115,8 @@ const Register = (props) => {
             ...prevData,
             [type === "product" ? "productQR" : "storeQR"]: value,
           }));
-          await checkProdctCode(value);
           toast.success("สแกน QR Code สำเร็จ");
+          await handleBlur(type, value);
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
         }
@@ -231,7 +231,7 @@ const Register = (props) => {
           onBlur={handleBlur}
         />
         <Button
-          onClick={() => handleScanQR("product")}
+          onClick={() => handleScanQR("รหัสสินค้า")}
           text="สแกน QR Code"
           type="button"
         />
@@ -258,7 +258,7 @@ const Register = (props) => {
                 onBlur={handleBlur}
               />
               <Button
-                onClick={() => handleScanQR("store")}
+                onClick={() => handleScanQR("รหัสร้านค้า")}
                 text="สแกน QR Code"
                 type="button"
               />
