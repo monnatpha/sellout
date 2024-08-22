@@ -19,6 +19,7 @@ const Register = (props) => {
         throw new Error(`Failed to fetch ${optionName}`);
       }
       const data = await response.json();
+
       setOptions((prevOptions) => ({
         ...prevOptions,
         [optionName]: data.result[0],
@@ -31,16 +32,16 @@ const Register = (props) => {
   useEffect(() => {
     const fetchAllOptions = async () => {
       await Promise.all([
-        fetchOptions("get-product-category", "product-category"),
-        fetchOptions("get-purchase-channel", "purchase-channel"),
-        fetchOptions("get-agent-store", "agent-store"),
-        fetchOptions("get-model", "model"),
+        fetchOptions("get-product-category", "productCategory"),
+        fetchOptions("get-purchase-channel", "purchaseChannel"),
+        fetchOptions("get-agent-store", "agentStore"),
+        fetchOptions("get-model", "mobileModel"),
       ]);
       setLoading(false);
     };
     fetchAllOptions();
   }, []);
-
+  console.log(options, "options");
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -200,7 +201,7 @@ const Register = (props) => {
           onChange={handleChange}
           required
           placeholder="0xx-xxx-xxxx"
-          maxLength={12}
+          maxLength={10}
           minLength={10}
         />
         <RadioGroup
@@ -348,9 +349,10 @@ const SelectField = ({ label, options, ...props }) => (
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         style={{ fontSize: "1rem" }}
       >
-        <option value="" disabled key="1">
+        <option value="" disabled>
           เลือก
         </option>
+
         {options.map((item) => (
           <option key={item.id} value={item.id}>
             {item.name}
