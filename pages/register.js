@@ -246,7 +246,6 @@ const Register = (props) => {
                 value={formData.storeQR}
                 onChange={handleChange}
                 placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
-                onBlur={handleBlur}
               />
               <Button
                 onClick={() => handleScanQR("store")}
