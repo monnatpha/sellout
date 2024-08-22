@@ -56,6 +56,19 @@ const Register = (props) => {
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
+    if (name === "purchaseChannel" && value !== "pcl_66818716") {
+      setFormData((prevData) => ({
+        ...prevData,
+        agentStore: "",
+        storeQR: "",
+      }));
+    }
+    if (name === "agentStore" && value !== "as_d04fef37") {
+      setFormData((prevData) => ({
+        ...prevData,
+        storeQR: "",
+      }));
+    }
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
