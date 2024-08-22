@@ -126,7 +126,7 @@ const Register = (props) => {
 
           setFormData((prevData) => ({
             ...prevData,
-            [type === "product" ? "productQR" : "storeQR"]: value,
+            [type === "รหัสสินค้า" ? "productQR" : "storeQR"]: value,
           }));
           toast.success("สแกน QR Code สำเร็จ");
           await handleBlur(type, value);
