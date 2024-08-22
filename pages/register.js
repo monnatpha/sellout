@@ -112,6 +112,7 @@ const Register = (props) => {
             ...prevData,
             [type === "product" ? "productQR" : "storeQR"]: value,
           }));
+          handleBlur(type, value);
           toast.success("สแกน QR Code สำเร็จ");
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
@@ -177,7 +178,11 @@ const Register = (props) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-blue-500"></div>
+      </div>
+    );
   }
 
   return (
@@ -247,6 +252,7 @@ const Register = (props) => {
                 value={formData.storeQR}
                 onChange={handleChange}
                 placeholder="กรอกรหัสร้านค้าหรือกดปุ่มสแกน QR Code ด้านล่าง"
+                onBlur={handleBlur}
               />
               <Button
                 onClick={() => handleScanQR("store")}
