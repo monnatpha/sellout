@@ -161,8 +161,8 @@ const Register = (props) => {
           `/api/check-product-code?productCode=${encodeURIComponent(value)}`
         );
         const data = await response.json();
-        const availableCode = data.availableCode;
-        const alreadyUsed = data.alreadyUsed;
+        const availableCode = data.result.availableCode;
+        const alreadyUsed = data.result.alreadyUsed;
 
         if (availableCode === 0) {
           toast.warn("Product Code ไม่มีในระบบ");
