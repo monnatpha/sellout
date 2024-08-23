@@ -48,7 +48,12 @@ export default async function handler(req, res) {
         userLineId,
         branch,
       });
-      res.status(201).json({ message: "User inserted successfully", result });
+
+      res.status(201).json({
+        success: true,
+        message: "ลงทะเบียนสำเร็จ",
+        result: "",
+      });
     } catch (error) {
       await sendLarkFailed(error, "insert");
       res.status(500).json({ error: "Failed to insert user" });

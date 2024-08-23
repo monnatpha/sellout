@@ -4,10 +4,7 @@ export const sendLarkSuccess = async (obj) => {
     "ลงทะเบียนสำเร็จ"
   );
   const card = await createCardMedia(title, message);
-  await postLark(
-    "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
-    card
-  );
+  await postLark(process.env.LARK_SUCESS, card);
 };
 
 export const createMessageMediaSalesLark = async (obj, headMsg) => {

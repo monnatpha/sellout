@@ -5,10 +5,7 @@ export const sendLarkFailed = async (obj, url) => {
     url
   );
   const card = await createCardMedia(title, message);
-  await postLark(
-    "https://open.larksuite.com/open-apis/bot/v2/hook/77c8bb4f-37bf-4e6d-b2ac-c127d4d6777f",
-    card
-  );
+  await postLark(process.env.LARK_FAILED, card);
 };
 
 export const createMessageMediaSalesLark = async (obj, headMsg, url) => {

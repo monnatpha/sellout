@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       res.status(200).json({
         success: true,
         message: "ดึงข้อมูลสำเร็จ",
-        result: { items: result },
+        result: { items: result[0] },
       });
     } catch (error) {
       await sendLarkFailed(error, "get-model");

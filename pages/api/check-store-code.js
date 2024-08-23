@@ -9,9 +9,12 @@ export default async function handler(req, res) {
       const [result] = await db.query("CALL WRFS_Check_StoreCode(?)", [
         storeCode,
       ]);
-      res
-        .status(200)
-        .json({ success: true, message: "ดึงข้อมูลสำเร็จ", result });
+
+      res.status(200).json({
+        success: true,
+        message: "ดึงข้อมูลสำเร็จ",
+        result: result[0][0],
+      });
     } catch (error) {
       await sendLarkFailed(error, "check-store-code");
       res.status(500).json({
