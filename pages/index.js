@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export default function Home(props) {
-  // if (!props?.liff?.isLoggedIn()) {
-  //   props?.liff?.login();
-  // }
+  if (!props?.liff?.isLoggedIn()) {
+    props?.liff?.login();
+  }
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">

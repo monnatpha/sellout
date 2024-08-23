@@ -5,8 +5,7 @@ export const sendLarkSuccess = async (obj) => {
   );
   const card = await createCardMedia(title, message);
   await postLark(
-    // "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
-    "https://open.larksuite.com/open-apis/bot/v2/hook/904ced97-d278-4f43-bc9d-2bdec25919b3",
+    "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
     card
   );
 };
