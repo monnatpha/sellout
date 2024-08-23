@@ -9,7 +9,8 @@ export default function Home(props) {
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-black mb-4 text-blue-700">
           ติดฟิล์มโฟกัส ลุ้นของพรีเมี่ยมฟรี 100 รางวัล
-        </h1
+        </h1>
+
         <p className="mb-4">
           เพียงซื้อ กระจกกันรอยโฟกัสสำหรับ iPhone ที่ร่วมรายการ
           (ตรวจสอบสินค้าที่ร่วมรายการในตารางด้านล่าง)
