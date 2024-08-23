@@ -128,7 +128,6 @@ const Register = (props) => {
             ...prevData,
             [type === "รหัสสินค้า" ? "productQR" : "storeQR"]: value,
           }));
-          toast.success("สแกน QR Code สำเร็จ");
           await handleBlur(type, value);
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
