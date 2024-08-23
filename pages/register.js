@@ -24,7 +24,7 @@ const Register = (props) => {
 
       setOptions((prevOptions) => ({
         ...prevOptions,
-        [optionName]: data.result.items[0],
+        [optionName]: data.result.items,
       }));
     } catch (error) {
       console.error(`Error fetching ${optionName}:`, error);
