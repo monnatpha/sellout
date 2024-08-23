@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Register = (props) => {
+  if (!props.liff.isLoggedIn()) {
+    props.liff.login();
+  }
+
   const [options, setOptions] = useState({
     productCategory: [],
     purchaseChannel: [],
@@ -88,7 +92,7 @@ const Register = (props) => {
           body: JSON.stringify({
             ...rest,
             phoneNumber: formattedPhoneNumber,
-            userLineId: props.liff.getContext().userId,
+            userLineId: liff.getContext().userId,
           }),
         });
         const data = await response.json();
