@@ -128,7 +128,7 @@ const Register = (props) => {
             ...prevData,
             [type === "รหัสสินค้า" ? "productQR" : "storeQR"]: value,
           }));
-          await handleBlur(type, value);
+          await handleBlur(value, type);
         } catch (error) {
           toast.warn("QR Code ไม่ถูกต้อง");
         }
