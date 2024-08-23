@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Register = (props) => {
-  if (!props.liff.isLoggedIn()) {
-    props.liff.login();
-  }
-
   const [options, setOptions] = useState({
     productCategory: [],
     purchaseChannel: [],
@@ -151,14 +147,20 @@ const Register = (props) => {
     if (value) {
       try {
         const response = await fetch(
-          `/api/check-duplicate-product-code?productCode=${encodeURIComponent(
-            value
-          )}`
+          `/api/check-product-code?productCode=${encodeURIComponent(value)}`
         );
         const data = await response.json();
-        const check = data.result[0][0].count;
-        setCheckQR(check);
-        if (check === 0) {
+        const avaliableCode = data.result[0][0].avaliableCode;
+        const alreadyUsed = data.result[1][0].alreadyUsed;
+        if (avaliableCode === 0) {
+          toast.warn("Product Code ไม่มีในระบบ");
+          setFormData((prevData) => ({
+            ...prevData,
+            productQR: "",
+          }));
+        }
+        setCheckQR(alreadyUsed);
+        if (alreadyUsed === 0) {
           toast.success("Product Code สามารถใช้งานได้");
         } else {
           toast.warn("Product Code นี้ถูกใช้งานแล้ว");
@@ -168,6 +170,7 @@ const Register = (props) => {
           }));
         }
       } catch (error) {
+        console.log(error, "error");
         toast.error("ตรวจสอบ Product Code ไม่สำเร็จ");
       }
     }
