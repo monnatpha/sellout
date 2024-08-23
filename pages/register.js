@@ -90,12 +90,14 @@ const Register = (props) => {
       setBtnDisable(true);
       e.preventDefault();
       const { phoneNumber, ...rest } = formData;
+      const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
       try {
         const response = await fetch("/api/insert", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...rest,
+            phoneNumber: formattedPhoneNumber,
             userLineId: liff.getContext().userId,
           }),
         });
