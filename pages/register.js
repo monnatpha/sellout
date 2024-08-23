@@ -196,7 +196,7 @@ const Register = (props) => {
           `/api/check-store-code?storeCode=${encodeURIComponent(value)}`
         );
         const data = await response.json();
-        const check = data.count;
+        const check = data.result.count;
 
         if (check === 0) {
           toast.success("Store Code สามารถใช้งานได้");
