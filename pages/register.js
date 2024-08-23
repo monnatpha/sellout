@@ -150,14 +150,16 @@ const Register = (props) => {
           `/api/check-product-code?productCode=${encodeURIComponent(value)}`
         );
         const data = await response.json();
-        const avaliableCode = data.result[0][0].avaliableCode;
+        const availableCode = data.result[0][0].availableCode;
         const alreadyUsed = data.result[1][0].alreadyUsed;
-        if (avaliableCode === 0) {
+
+        if (availableCode === 0) {
           toast.warn("Product Code ไม่มีในระบบ");
           setFormData((prevData) => ({
             ...prevData,
             productQR: "",
           }));
+          return;
         }
         setCheckQR(alreadyUsed);
         if (alreadyUsed === 0) {
@@ -168,6 +170,7 @@ const Register = (props) => {
             ...prevData,
             productQR: "",
           }));
+          return;
         }
       } catch (error) {
         console.log(error, "error");
