@@ -15,11 +15,12 @@ export default async function handler(req, res) {
       mobileModel,
       acceptPDPA,
       userLineId,
+      branch,
     } = req.body;
 
     try {
       const [result] = await db.query(
-        "CALL WRFS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "CALL WRFS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           userLineId,
           fullName,
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
           productCategory,
           mobileModel,
           acceptPDPA,
+          branch,
         ]
       );
       await sendLarkSuccess({
@@ -44,6 +46,7 @@ export default async function handler(req, res) {
         mobileModel,
         acceptPDPA,
         userLineId,
+        branch,
       });
       res.status(201).json({ message: "User inserted successfully", result });
     } catch (error) {

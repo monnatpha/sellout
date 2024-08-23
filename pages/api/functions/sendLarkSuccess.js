@@ -5,7 +5,8 @@ export const sendLarkSuccess = async (obj) => {
   );
   const card = await createCardMedia(title, message);
   await postLark(
-    "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
+    // "https://open.larksuite.com/open-apis/bot/v2/hook/0e3ec5be-3a48-489f-8db6-1f1d80a84fa6",
+    "https://open.larksuite.com/open-apis/bot/v2/hook/904ced97-d278-4f43-bc9d-2bdec25919b3",
     card
   );
 };
@@ -22,6 +23,7 @@ export const createMessageMediaSalesLark = async (obj, headMsg) => {
     purchaseChannel,
     storeQR,
     userLineId,
+    branch,
   } = obj;
 
   const title = `🟢🎉🎈🎊 ${headMsg} 🎊🎈🎉 🟢`;
@@ -38,6 +40,7 @@ export const createMessageMediaSalesLark = async (obj, headMsg) => {
 🏠 ข้อมูลร้านค้า
 ช่องทางการสั่งซื้อ: ${purchaseChannel}
 ร้านค้าตัวแทนจำหน่าย: ${agentStore}
+สาขา: ${branch}
 รหัสร้านค้า: ${storeQR}
 
 📝 ยอมรับเงื่อนไข PDPA: ${acceptPDPA}`;

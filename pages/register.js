@@ -7,6 +7,7 @@ const Register = (props) => {
     purchaseChannel: [],
     agentStore: [],
     mobileModel: [],
+    branch: [],
   });
 
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ const Register = (props) => {
         fetchOptions("get-purchase-channel", "purchaseChannel"),
         fetchOptions("get-agent-store", "agentStore"),
         fetchOptions("get-model", "mobileModel"),
+        fetchOptions("get-branch", "branch"),
       ]);
       setLoading(false);
     };
@@ -52,15 +54,23 @@ const Register = (props) => {
     acceptPDPA: false,
     productQR: "",
     storeQR: "",
+    branch: "",
   });
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
+    if (name === "agentStore") {
+      setFormData((prevData) => ({
+        ...prevData,
+        branch: "",
+      }));
+    }
     if (name === "purchaseChannel" && value !== "pcl_66818716") {
       setFormData((prevData) => ({
         ...prevData,
         agentStore: "",
         storeQR: "",
+        branch: "",
       }));
     }
     if (name === "agentStore" && value !== "as_d04fef37") {
@@ -80,14 +90,12 @@ const Register = (props) => {
       setBtnDisable(true);
       e.preventDefault();
       const { phoneNumber, ...rest } = formData;
-      const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
       try {
         const response = await fetch("/api/insert", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...rest,
-            phoneNumber: formattedPhoneNumber,
             userLineId: liff.getContext().userId,
           }),
         });
@@ -102,6 +110,7 @@ const Register = (props) => {
         setBtnDisable(false);
         liff.closeWindow();
       } catch (error) {
+        console.log(error, "error");
         toast.error("ลงทะเบียนไม่สำเร็จ");
       }
     } else {
@@ -267,6 +276,21 @@ const Register = (props) => {
             required
           />
         )}
+        {formData.agentStore !== "as_d04fef37" &&
+          formData.agentStore !== "" &&
+          formData.purchaseChannel === "pcl_66818716" && (
+            <SelectField
+              label="สาขา"
+              name="branch"
+              options={options.branch.filter((item) => {
+                return item.agentStoreId === formData.agentStore;
+              })}
+              value={formData.branch}
+              onChange={handleChange}
+              required
+            />
+          )}
+
         {formData.agentStore === "as_d04fef37" &&
           formData.purchaseChannel === "pcl_66818716" && (
             <>
