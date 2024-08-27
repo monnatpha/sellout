@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       res.status(200).json({
         success: true,
         message: "ดึงข้อมูลสำเร็จ",
-        result: result[0],
+        result: result[0][0],
       });
     } catch (error) {
       await sendLarkFailed(error, "get-summary-register");
