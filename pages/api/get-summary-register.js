@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const { customerNo } = req.query;
     try {
       const [result] = await db.query("CALL WRFS_Summary_register(?)", [
-        customerNo,
+        customerNo.toUpperCase(),
       ]);
 
       res.status(200).json({
