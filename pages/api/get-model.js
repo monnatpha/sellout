@@ -14,14 +14,15 @@ export default async function handler(req, res) {
       await sendLarkFailed(error, "get-model");
       res.status(500).json({
         success: false,
-        message: "ดึงข้อมูลไม่สำเร็จ (10005)",
+        message: "ดึงข้อมูลไม่สำเร็จ (10009)",
         result: "",
       });
     }
   } else {
+    await sendLarkFailed({ error: "ดึงข้อมูลไม่สำเร็จ (10010)" }, "get-model");
     res.status(405).json({
       success: false,
-      message: "ดึงข้อมูลไม่สำเร็จ (10006)",
+      message: "ดึงข้อมูลไม่สำเร็จ (10010)",
       result: "",
     });
   }

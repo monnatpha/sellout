@@ -19,7 +19,6 @@ export const createMessageMediaSalesLark = async (obj, headMsg) => {
     purchaseChannel,
     storeQR,
     userLineId,
-    branch,
   } = obj;
 
   const title = `🟢🎉🎈🎊 ${headMsg} 🎊🎈🎉 🟢`;
@@ -36,7 +35,6 @@ export const createMessageMediaSalesLark = async (obj, headMsg) => {
 🏠 ข้อมูลร้านค้า
 ช่องทางการสั่งซื้อ: ${purchaseChannel}
 ร้านค้าตัวแทนจำหน่าย: ${agentStore}
-สาขา: ${branch}
 รหัสร้านค้า: ${storeQR}
 
 📝 ยอมรับเงื่อนไข PDPA: ${acceptPDPA}`;

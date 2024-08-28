@@ -14,14 +14,18 @@ export default async function handler(req, res) {
       await sendLarkFailed(error, "get-agent-store");
       res.status(500).json({
         success: false,
-        message: "ดึงข้อมูลไม่สำเร็จ (10007)",
+        message: "ดึงข้อมูลไม่สำเร็จ (10005)",
         result: "",
       });
     }
   } else {
+    await sendLarkFailed(
+      { error: "ดึงข้อมูลไม่สำเร็จ (10006)" },
+      "get-agent-store"
+    );
     res.status(405).json({
       success: false,
-      message: "ดึงข้อมูลไม่สำเร็จ (10008)",
+      message: "ดึงข้อมูลไม่สำเร็จ (10006)",
       result: "",
     });
   }

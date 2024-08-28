@@ -15,12 +15,11 @@ export default async function handler(req, res) {
       mobileModel,
       acceptPDPA,
       userLineId,
-      branch,
     } = req.body;
 
     try {
       const [result] = await db.query(
-        "CALL WRFS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "CALL WRFS_SelloutPrivilegePrivacy_Insert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           userLineId,
           fullName,
@@ -32,7 +31,6 @@ export default async function handler(req, res) {
           productCategory,
           mobileModel,
           acceptPDPA,
-          branch,
         ]
       );
       await sendLarkSuccess({
@@ -46,7 +44,6 @@ export default async function handler(req, res) {
         mobileModel,
         acceptPDPA,
         userLineId,
-        branch,
       });
 
       res.status(201).json({
@@ -55,10 +52,12 @@ export default async function handler(req, res) {
         result: "",
       });
     } catch (error) {
+      console.log(error);
       await sendLarkFailed(error, "insert");
-      res.status(500).json({ error: "Failed to insert user" });
+      res.status(500).json({ error: "บันทึกข้อมูลไม่สำเร็จ (10017)" });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    await sendLarkFailed({ error: "บันทึกข้อมูลไม่สำเร็จ (10018)" }, "insert");
+    res.status(405).json({ message: "บันทึกข้อมูลไม่สำเร็จ (10018)" });
   }
 }
