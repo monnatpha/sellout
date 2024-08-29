@@ -27,7 +27,7 @@ export default function Home(props) {
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">
         {getMobileOperatingSystem() === "Android" ? (
-          <h1 className="text-3xl font-black mb-4 mt-36">
+          <h1 className="text-3xl font-black mb-4 mt-56">
             ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล android
           </h1>
         ) : (
