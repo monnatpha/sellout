@@ -53,25 +53,6 @@ function MyApp({ Component, pageProps }) {
         setLiffError(error.toString());
       });
   }, []);
-  try {
-    liff.sendMessages([
-      {
-        type: "text",
-        text: "ทดสอบระบบ android1",
-      },
-    ]);
-  } catch (error) {
-    console.log(error, "error");
-  }
-  console.log(
-    liff.sendMessages([
-      {
-        type: "text",
-        text: "ทดสอบระบบ android2",
-      },
-    ]),
-    "ทดสอบระบบ"
-  );
 
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
