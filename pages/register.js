@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import ConfirmationModal from "../components/ConfirmationModal";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Register = (props) => {
   const [options, setOptions] = useState({
@@ -330,7 +330,7 @@ const Register = (props) => {
           required
         />
         <Button type="submit" text="ลงทะเบียน" disabled={btnDisable} />
-        <ConfirmationModal
+        <ConfirmModal
           isOpen={isModalOpen}
           onConfirm={handleConfirm}
           onCancel={handleCancel}
