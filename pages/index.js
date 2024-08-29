@@ -1,19 +1,22 @@
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Home(props) {
   if (!props?.liff?.isLoggedIn()) {
     props?.liff?.login();
   }
   function getMobileOperatingSystem() {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+      const userAgent = navigator.userAgent || window.opera;
 
-    if (/android/i.test(userAgent)) {
-      return "Android";
-    }
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      }
 
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      return "iOS";
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+      }
+
+      return "unknown";
     }
 
     return "unknown";
