@@ -3,12 +3,36 @@ import { useState, useEffect } from "react";
 import liff from "@line/liff";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import dynamic from "next/dynamic";
 
 function MyApp({ Component, pageProps }) {
   const [liffObject, setLiffObject] = useState(null);
   const [liffError, setLiffError] = useState(null);
 
+  function getMobileOperatingSystem() {
+    if (typeof window !== "undefined" && typeof navigator !== "undefined") {
+      const userAgent = navigator.userAgent || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      }
+
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+      }
+
+      return "unknown";
+    }
+
+    return "unknown";
+  }
+
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      import("vconsole").then((VConsole) => {
+        new VConsole.default(); // Use VConsole.default() to handle CommonJS default export
+      });
+    }
     console.log("start liff.init()...");
     liff
       .init({ liffId: process.env.LIFF_ID })
@@ -30,7 +54,7 @@ function MyApp({ Component, pageProps }) {
         setLiffError(error.toString());
       });
   }, []);
-
+  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem");
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
   return (

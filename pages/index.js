@@ -4,6 +4,7 @@ export default function Home(props) {
   // if (!props?.liff?.isLoggedIn()) {
   //   props?.liff?.login();
   // }
+
   function getMobileOperatingSystem() {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       const userAgent = navigator.userAgent || window.opera;
