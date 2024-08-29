@@ -27,11 +27,11 @@ function MyApp({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      import("vconsole").then((VConsole) => {
-        new VConsole.default();
-      });
-    }
+    // if (typeof window !== "undefined") {
+    //   import("vconsole").then((VConsole) => {
+    //     new VConsole.default();
+    //   });
+    // }
     console.log("start liff.init()...");
     liff
       .init({ liffId: process.env.LIFF_ID })
@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }) {
 
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
-  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem1");
+
   return (
     <>
       <Component {...pageProps} /> <ToastContainer />
