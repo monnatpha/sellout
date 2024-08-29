@@ -3,59 +3,84 @@ import { sleep, check } from "k6";
 
 export const options = {
   vus: 1,
-  duration: "10s",
+  duration: "1s",
 };
 
-export default function () {
-  const url1 = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000";
 
-  const res1 = http.get(`${url1}/api/get-model`);
-  const res2 = http.get(`${url1}/api/get-purchase-channel`);
-  const res3 = http.get(`${url1}/api/get-agent-store`);
-  const res4 = http.get(`${url1}/api/get-product-category`);
-  const res5 = http.get(`${url1}/api/check-duplicate-product-code`);
+function getRequest(endpoint) {
+  return http.get(`${BASE_URL}${endpoint}`);
+}
 
-  const productCode = "exampleCode"; // Replace with the product code you want to test
-  const url2 = `http://localhost:3000/api/check-duplicate-product-code?productCode=${encodeURIComponent(
-    productCode
-  )}`;
+function postRequest(endpoint, payload, params) {
+  return http.post(`${BASE_URL}${endpoint}`, payload, params);
+}
 
-  const response2 = http.get(url2);
-
-  // Check if the status is 200
-  check(response2, {
+function checkGetResponse(response) {
+  check(response, {
     "is status 200": (r) => r.status === 200,
     "response get time < 200ms": (r) => r.timings.duration < 200,
     "response get contains result": (r) => r.json().hasOwnProperty("result"),
   });
+}
 
-  const url = "http://localhost:3000/api/insert";
+function checkPostResponse(response) {
+  check(response, {
+    "is status post 201": (r) => r.status === 201,
+    "response post time < 500ms": (r) => r.timings.duration < 500,
+  });
+}
+
+export default function () {
+  const productCode = "DjFkPAFK3r9";
+
+  const res1 = getRequest("/api/get-model");
+  const res2 = getRequest("/api/get-purchase-channel");
+  const res3 = getRequest("/api/get-agent-store");
+  const res4 = getRequest("/api/get-product-category");
+  const res5 = getRequest(
+    `/api/check-product-code?productCode=${encodeURIComponent(productCode)}`
+  );
+
+  checkGetResponse(res1);
+  checkGetResponse(res2);
+  checkGetResponse(res3);
+  checkGetResponse(res4);
+  checkGetResponse(res5);
+
+  const result2 = res5.json("result");
+  console.log(result2);
 
   const payload = JSON.stringify({
-    lineUserId: "Uf91357ffb45b51c14826s92fa",
     fullName: "มนต์ณัฐ พันธุ์ชัยพล",
     phoneNumber: "20202020",
     purchaseChannel: "ร้านค้าตัวแทนจำหน่าย",
-    productCode: "kkkk",
+    productQR: "kkkk",
     agentStore: "TG Fone",
-    storeCode: "TBK-NMI-15-0027",
+    storeQR: "TUP-NMI-01-0002",
     productCategory: "1. กระจกกันรอยเต็มจอแบบด้าน เฉพาะรุ่น iphone เท่านั้น",
-    model: "iPhone 7",
+    mobileModel: "iPhone 7",
     acceptPDPA: true,
+    userLineId: "Uf91357ffb45b51c14826s92fa",
   });
 
-  const params = {
+  const postParams = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const response = http.post(url, payload, params);
+  const postResponse = postRequest("/api/insert", payload, postParams);
+  checkPostResponse(postResponse);
 
-  check(response, {
-    "is status post 201": (r) => r.status === 201,
-    "response post time < 500ms": (r) => r.timings.duration < 500,
-  });
+  const customerNo = "TUP-NMI-01-0002";
+  const summaryUrl = `/api/get-summary-register?customerNo=${encodeURIComponent(
+    customerNo
+  )}`;
+  const summaryResponse = getRequest(summaryUrl);
+  const result = summaryResponse.json("result");
+
+  console.log("Result:", JSON.stringify(result));
 
   sleep(1);
 }
