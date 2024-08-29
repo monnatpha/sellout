@@ -27,11 +27,11 @@ function MyApp({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      import("vconsole").then((VConsole) => {
-        new VConsole.default();
-      });
-    }
+    // if (typeof window !== "undefined") {
+    //   import("vconsole").then((VConsole) => {
+    //     new VConsole.default();
+    //   });
+    // }
     console.log("start liff.init()...");
     liff
       .init({ liffId: process.env.LIFF_ID })

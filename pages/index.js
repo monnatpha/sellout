@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export default function Home(props) {
-  // if (!props?.liff?.isLoggedIn()) {
-  //   props?.liff?.login();
-  // }
+  if (!props?.liff?.isLoggedIn()) {
+    props?.liff?.login();
+  }
   function getMobileOperatingSystem() {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       const userAgent = navigator.userAgent || window.opera;
@@ -22,17 +22,16 @@ export default function Home(props) {
     return "unknown";
   }
 
-  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem2");
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">
         {getMobileOperatingSystem() === "Android" ? (
           <h1 className="text-3xl font-black mb-4 mt-72">
-            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล android
+            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
           </h1>
         ) : (
           <h1 className="text-3xl font-black mb-4 mt-4">
-            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล iphone
+            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
           </h1>
         )}
 
