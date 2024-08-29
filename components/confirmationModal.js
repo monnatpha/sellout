@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConfirmationModal = ({ isOpen, onConfirm, onCancel }) => {
+export const ConfirmationModal = ({ isOpen, onConfirm, onCancel }) => {
   if (!isOpen) return null;
 
   return (
@@ -33,5 +33,3 @@ const ConfirmationModal = ({ isOpen, onConfirm, onCancel }) => {
     </div>
   );
 };
-
-export default ConfirmationModal;
