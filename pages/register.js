@@ -93,17 +93,12 @@ const Register = (props) => {
       const { phoneNumber, ...rest } = formData;
       const formattedPhoneNumber = phoneNumber.replace(/-/g, "");
       setIsModalOpen(false);
-      liff.sendMessages([
-        {
-          type: "text",
-          text: "ลงทะเบียนสำเร็จ1",
-        },
-      ]);
+
       try {
         liff.sendMessages([
           {
             type: "text",
-            text: "ลงทะเบียนสำเร็จ2",
+            text: "ลงทะเบียนสำเร็จ1",
           },
         ]);
         const response = await fetch("/api/insert", {
@@ -115,31 +110,21 @@ const Register = (props) => {
             userLineId: liff.getContext().userId,
           }),
         });
-        liff.sendMessages([
-          {
-            type: "text",
-            text: "ลงทะเบียนสำเร็จ3",
-          },
-        ]);
+
         const data = await response.json();
-        liff.sendMessages([
-          {
-            type: "text",
-            text: "ลงทะเบียนสำเร็จ4",
-          },
-        ]);
+
         if (data.error) {
           toast.error("ลงทะเบียนไม่สำเร็จ");
           setBtnDisable(false);
           return;
         }
-        liff.sendMessages([
+        await liff.sendMessages([
           {
             type: "text",
             text: "ลงทะเบียนสำเร็จ5",
           },
         ]);
-        toast.success("ลงทะเบียนสำเร็จ");
+        await toast.success("ลงทะเบียนสำเร็จ");
         setBtnDisable(false);
         liff.closeWindow();
       } catch (error) {
