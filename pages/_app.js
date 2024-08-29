@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       import("vconsole").then((VConsole) => {
-        new VConsole.default(); // Use VConsole.default() to handle CommonJS default export
+        new VConsole.default();
       });
     }
     console.log("start liff.init()...");
@@ -54,9 +54,10 @@ function MyApp({ Component, pageProps }) {
         setLiffError(error.toString());
       });
   }, []);
-  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem");
+
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
+  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem");
   return (
     <>
       <Component {...pageProps} /> <ToastContainer />
