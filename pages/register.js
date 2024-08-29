@@ -95,12 +95,6 @@ const Register = (props) => {
       setIsModalOpen(false);
 
       try {
-        liff.sendMessages([
-          {
-            type: "text",
-            text: "ลงทะเบียนสำเร็จ1",
-          },
-        ]);
         const response = await fetch("/api/insert", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,7 +115,7 @@ const Register = (props) => {
         await liff.sendMessages([
           {
             type: "text",
-            text: "ลงทะเบียนสำเร็จ5",
+            text: "ลงทะเบียนสำเร็จ",
           },
         ]);
         await toast.success("ลงทะเบียนสำเร็จ");
