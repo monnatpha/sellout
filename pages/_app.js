@@ -27,11 +27,11 @@ function MyApp({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    // if (typeof window !== "undefined") {
-    //   import("vconsole").then((VConsole) => {
-    //     new VConsole.default();
-    //   });
-    // }
+    if (typeof window !== "undefined") {
+      import("vconsole").then((VConsole) => {
+        new VConsole.default();
+      });
+    }
     console.log("start liff.init()...");
     liff
       .init({ liffId: process.env.LIFF_ID })
@@ -53,6 +53,25 @@ function MyApp({ Component, pageProps }) {
         setLiffError(error.toString());
       });
   }, []);
+  try {
+    liff.sendMessages([
+      {
+        type: "text",
+        text: "ทดสอบระบบ android1",
+      },
+    ]);
+  } catch (error) {
+    console.log(error, "error");
+  }
+  console.log(
+    liff.sendMessages([
+      {
+        type: "text",
+        text: "ทดสอบระบบ android2",
+      },
+    ]),
+    "ทดสอบระบบ"
+  );
 
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
