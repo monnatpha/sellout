@@ -4,7 +4,6 @@ export default function Home(props) {
   // if (!props?.liff?.isLoggedIn()) {
   //   props?.liff?.login();
   // }
-
   function getMobileOperatingSystem() {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       const userAgent = navigator.userAgent || window.opera;
@@ -23,16 +22,22 @@ export default function Home(props) {
     return "unknown";
   }
 
+  if (typeof window !== "undefined") {
+    import("vconsole").then((VConsole) => {
+      new VConsole.default();
+    });
+  }
+  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem2");
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
       <div className="container mx-auto p-4">
         {getMobileOperatingSystem() === "Android" ? (
           <h1 className="text-3xl font-black mb-4 mt-24 pt-24">
-            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
+            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล android
           </h1>
         ) : (
           <h1 className="text-3xl font-black mb-4 mt-4">
-            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
+            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล iphone
           </h1>
         )}
 

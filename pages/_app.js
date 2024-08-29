@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import liff from "@line/liff";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import dynamic from "next/dynamic";
 
 function MyApp({ Component, pageProps }) {
   const [liffObject, setLiffObject] = useState(null);
@@ -57,7 +56,7 @@ function MyApp({ Component, pageProps }) {
 
   pageProps.liff = liffObject;
   pageProps.liffError = liffError;
-  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem");
+  console.log(getMobileOperatingSystem(), "getMobileOperatingSystem1");
   return (
     <>
       <Component {...pageProps} /> <ToastContainer />
