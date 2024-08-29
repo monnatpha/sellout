@@ -30,7 +30,7 @@ export default function Home(props) {
             {`ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล ${"             "}`}
           </h1>
         ) : (
-          <h1 className="text-3xl font-black mb-4 mt-4">
+          <h1 className="text-3xl font-black mb-4 mt-24">
             ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
           </h1>
         )}
