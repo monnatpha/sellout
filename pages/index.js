@@ -4,6 +4,7 @@ export default function Home(props) {
   if (!props?.liff?.isLoggedIn()) {
     props?.liff?.login();
   }
+
   function getMobileOperatingSystem() {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       const userAgent = navigator.userAgent || window.opera;
@@ -23,42 +24,49 @@ export default function Home(props) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-4">
-      <div className="container mx-auto p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen space-y-4 p-4">
+      <div className="container mx-auto sm:p-6 md:p-8">
         {getMobileOperatingSystem() === "Android" ? (
-          <h1 className="text-3xl font-black mb-4 mt-72">
-            {`ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล ${"             "}`}
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-black mb-4 mt-24 sm:mt-48">
+            {`ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล`}
           </h1>
         ) : (
-          <h1 className="text-3xl font-black mb-4 mt-24">
-            ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
-          </h1>
+          <>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black mb-4 mt-24 sm:mt-48">
+              ติดฟิล์มโฟกัส ลุ้นของพรีเมียม 100 รางวัล
+            </h1>
+          </>
         )}
-
-        <p className="mb-4">
+        <p className="mb-4 text-xs sm:text-sm md:text-base break-words">
           เพียงซื้อ กระจกกันรอยโฟกัสสำหรับ iPhone ที่ร่วมรายการ
           (ตรวจสอบสินค้าที่ร่วมรายการในรายละเอียดกิจกรรมเพิ่มเติม)
           และนำรหัสสินค้าที่อยู่บนตัวสินค้า มาลงทะเบียนที่ Line Official
           @Focusshield ลุ้นรับของรางวัลสุดพิเศษรวม 100 รางวัล
         </p>
-        <p className="text-lg font-black mb-4 underline underline-offset-auto">
+        <p className="text-sm sm:text-lg md:text-xl font-black mb-4 underline">
           ของรางวัล
         </p>
 
-        <p>รางวัลที่ 1 AirPods (รุ่นที่ 2) จำนวน 10 รางวัล</p>
-        <p>รางวัลที่ 2 หมอนผ้าห่มโฟกัส จำนวน 50 รางวัล</p>
-        <p>รางวัลที่ 3 สายชาร์จโฟกัส 10 รางวัล</p>
-        <p className="mb-4">
+        <p className="text-xs sm:text-sm md:text-base">
+          รางวัลที่ 1 AirPods (รุ่นที่ 2) จำนวน 10 รางวัล
+        </p>
+        <p className="text-xs sm:text-sm md:text-base">
+          รางวัลที่ 2 หมอนผ้าห่มโฟกัส จำนวน 50 รางวัล
+        </p>
+        <p className="text-xs sm:text-sm md:text-base">
+          รางวัลที่ 3 สายชาร์จโฟกัส 10 รางวัล
+        </p>
+        <p className="text-xs sm:text-sm md:text-base mb-4">
           รางวัลที่ 4 กระเป๋าโฟกัส พร้อม Focus Screen Clear 30 รางวัล
         </p>
-        <p className="text-lg font-black mb-4 underline underline-offset-auto">
+        <p className="text-sm sm:text-lg md:text-xl font-black mb-4 underline">
           ระยะเวลาลงทะเบียน 20 ก.ย. 2567 - 9 ต.ค. 2567
         </p>
-        <p className="text-lg font-black mb-4 underline underline-offset-auto">
+        <p className="text-sm sm:text-lg md:text-xl font-black mb-4 underline">
           กติกาสำหรับเข้าร่วมกิจกรรม
         </p>
 
-        <ol className="ml-4 mb-2">
+        <ol className="ml-4 mb-2 text-xs sm:text-sm md:text-base list-decimal">
           <li>
             1. ผู้ร่วมกิจกรรมทำการสั่งซื้อ กระจกกันรอยสำหรับ iPhone
             ที่ร่วมรายการ โดยสามารถซื้อได้จากทุกช่องทาง ทั้งร้านค้า Focus
@@ -81,7 +89,7 @@ export default function Home(props) {
           href="https://focusshield.com/iphone-16/lucky-draw-premium"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 hover:underline "
+          className="text-blue-500 hover:underline text-xs sm:text-sm md:text-base"
         >
           คลิกเพื่ออ่านรายละเอียดกิจกรรมเพิ่มเติม
         </a>
@@ -89,7 +97,7 @@ export default function Home(props) {
 
       <Link
         href="/register"
-        className="bg-blue-500 text-white py-2 px-4 rounded"
+        className="bg-blue-500 text-white text-xs sm:text-sm md:text-base py-2 px-4 rounded"
       >
         ยอมรับเงื่อนไขกิจกรรม
       </Link>
